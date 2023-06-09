@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 // import { useApiRequest } from "../useFetch";
 import { useRouter } from "next/router";
-import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";
+import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid";
 // import useStore from "@/store/useStore";
 import Image from "next/image";
 import Link from "next/link";
