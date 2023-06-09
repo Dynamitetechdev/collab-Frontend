@@ -149,8 +149,8 @@ const AuthForm: React.FC<AuthFormProps> = ({
           {signUp ? (
             <>
               <p className="my-10">
-                By clicking on Register, you agree to Collab's terms of use and
-                privacy policy.
+                By clicking on Register, you agree to Collab&apos;s terms of use
+                and privacy policy.
               </p>
 
               <p className="font-semibold mb-10">
