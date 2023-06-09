@@ -1,0 +1,68 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url("https://fonts.cdnfonts.com/css/euclid-circular-b");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.tile_bg {
+  background-image: url("/assets/tile.svg"),
+    linear-gradient(-45deg, #ffffff, white 40%, #ffffff 60%);
+}
+.main {
+  min-height: 100vh;
+}
+
+.dot {
+  top: -40%;
+  color: blue;
+}
+.mobile {
+  display: none;
+}
+
+.mobile_nav {
+  display: none;
+}
+.login-img {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+@media screen and (max-width: 600px) {
+  .mobile {
+    display: flex;
+  }
+  .desktop {
+    display: none;
+  }
+  .nav_items {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 10%;
+    width: 90vw;
+    z-index: 99;
+  }
+  .nav-close {
+    display: none;
+  }
+
+  .mobile {
+    .icon {
+      width: 30px;
+    }
+  }
+}
