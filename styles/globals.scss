@@ -41,6 +41,13 @@
   bottom: 0;
   right: 0;
 }
+.password_visible {
+  width: 24px;
+  top: 0%;
+  right: 0;
+  transform: translate(0%, 50%);
+  margin: 0 10px;
+}
 @media screen and (max-width: 600px) {
   .mobile {
     display: flex;
