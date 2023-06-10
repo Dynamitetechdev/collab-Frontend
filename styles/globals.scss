@@ -16,7 +16,22 @@
   -moz-appearance: none;
   appearance: none;
 }
+table {
+  @apply min-w-full;
+}
 
+th,
+td {
+  @apply py-2 px-4 border border-gray-300;
+}
+
+th {
+  @apply bg-gray-100;
+}
+
+td:focus {
+  @apply outline-none;
+}
 .tile_bg {
   background-image: url("/assets/tile.svg"),
     linear-gradient(-45deg, #ffffff, white 40%, #ffffff 60%);
