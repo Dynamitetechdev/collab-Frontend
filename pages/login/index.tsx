@@ -7,7 +7,7 @@ const Login = () => {
       description="Welcome"
       method={"POST"}
       routeTo="/dashboard"
-      endPoint=""
+      endPoint="/auth/login"
     />
   );
 };

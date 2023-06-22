@@ -7,7 +7,7 @@ const Register = () => {
       description="Welcome"
       method={"POST"}
       routeTo="/dashboard"
-      endPoint=""
+      endPoint="/auth/register"
       signUp={true}
     />
   );

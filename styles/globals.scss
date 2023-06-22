@@ -63,6 +63,19 @@ td:focus {
   transform: translate(0%, 50%);
   margin: 0 10px;
 }
+
+.option {
+  position: absolute;
+  width: 160px;
+  z-index: 99;
+  background: #efefef;
+  padding: 10px;
+  li {
+    .icon {
+      width: 20px;
+    }
+  }
+}
 @media screen and (max-width: 600px) {
   .mobile {
     display: flex;

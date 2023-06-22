@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-// import { useApiRequest } from "../useFetch";
+import { useApiRequest } from "../useFetch";
 import { useRouter } from "next/router";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid";
-// import useStore from "@/store/useStore";
+import useStore from "@/store/useStore";
 import Image from "next/image";
 import Link from "next/link";
-// import Loader from "../UI/utilities/loader";
+import Loader from "../utilities/loader";
 interface AuthFormProps {
   name: string;
   description: string;
@@ -16,17 +16,17 @@ interface AuthFormProps {
 }
 const AuthForm: React.FC<AuthFormProps> = ({
   name,
-  description,
   signUp,
   method,
   routeTo,
   endPoint,
 }) => {
   const [passwordVisible, setPasswordVisible] = useState<Boolean>(false);
-  //   const { apiMessage, userAccess } = useStore();
+  const { apiMessage, userAccess } = useStore();
   const router = useRouter();
-  //   const [loading, handleApiRequest] = useApiRequest();
+  const [loading, handleApiRequest] = useApiRequest();
   const [formData, setFormData] = useState({
+    name: "",
     email: "",
     password: "",
   });
@@ -40,31 +40,31 @@ const AuthForm: React.FC<AuthFormProps> = ({
   console.log(formData);
   type ApiData = {
     message: string;
-    FACode: string;
   };
 
-  //   const handleRegister = async (e: React.FormEvent): Promise<ApiData | any> => {
-  //     e.preventDefault();
-  //     try {
-  //       const response = await handleApiRequest(method, endPoint, formData);
-  //       localStorage.setItem("user", JSON.stringify(response.data));
-  //       console.log(response);
-  //       if (response.status === 201 || 200) {
-  //         router.push(`/${routeTo}`);
-  //       }
-  //       console.log("Regsiter Payload", response);
-  //       return response;
-  //     } catch (error: any) {
-  //       console.log("ui error:", error?.response?.data.message);
-  //       return;
-  //     }
-  //   };
+  const handleRegister = async (e: React.FormEvent): Promise<ApiData | any> => {
+    e.preventDefault();
+    try {
+      const response = await handleApiRequest(method, endPoint, formData);
+      localStorage.setItem("user", JSON.stringify(response.data));
+      localStorage.setItem("isLoggedIn", "true");
+      console.log(response);
+      if (response.status === 201 || 200) {
+        router.push(`/${routeTo}`);
+      }
+      console.log("Regsiter Payload", response);
+      return response;
+    } catch (error: any) {
+      console.log("ui error:", error?.response?.data.message);
+      return;
+    }
+  };
 
-  //   useEffect(() => {
-  //     if (userAccess) {
-  //       router.push("/dashboard");
-  //     }
-  //   }, []);
+  useEffect(() => {
+    if (userAccess) {
+      router.push("/dashboard");
+    }
+  }, [userAccess]);
   return (
     <div className="">
       <div className="auth_form_wrapper w-full relative">
@@ -110,9 +110,21 @@ const AuthForm: React.FC<AuthFormProps> = ({
           <form
             action=""
             method="post"
-            //   onSubmit={handleRegister}
+            onSubmit={handleRegister}
             className="flex flex-col mx-auto"
           >
+            {signUp && (
+              <input
+                type="text"
+                placeholder="Full Name"
+                name="name"
+                value={formData.name}
+                onChange={onChange}
+                className="mb-5 py-3 px-4 border rounded-md"
+                required
+              />
+            )}
+
             <input
               type="email"
               placeholder="Email"
@@ -138,13 +150,12 @@ const AuthForm: React.FC<AuthFormProps> = ({
               >
                 {passwordVisible ? <EyeSlashIcon /> : <EyeIcon />}
               </div>
-              {/* <p className="text-left text-red-600">{apiMessage}</p> */}
+              <p className="text-left text-red-600">{apiMessage}</p>
             </div>
 
-            <button className="text-white bg-blue-700 py-3 px-7">{name}</button>
-            {/* <button className="text-white bg-blue-700 py-3 px-7">
-            {name} {loading ? <Loader /> : null}
-          </button> */}
+            <button className="text-white bg-blue-700 py-3 px-7">
+              {name} {loading ? <Loader /> : null}
+            </button>
           </form>
           {signUp ? (
             <>
@@ -159,38 +170,6 @@ const AuthForm: React.FC<AuthFormProps> = ({
                   Login
                 </Link>{" "}
               </p>
-
-              {/* <div className="passwordRequirement">
-              <div className="flex my-3">
-                <Image
-                  src={"/assets/authImages/GrayCheckmark.png"}
-                  width={25}
-                  height={16}
-                  alt=""
-                />
-                <p className="mx-3 font-semibold">Minimum of 8 characters</p>
-              </div>
-              <div className="flex my-3">
-                <Image
-                  src={"/assets/authImages/GrayCheckmark.png"}
-                  width={21}
-                  height={21}
-                  alt=""
-                />
-                <p className="mx-3 font-semibold">One UPPERCASE character</p>
-              </div>
-              <div className="flex my-3">
-                <Image
-                  src={"/assets/authImages/GrayCheckmark.png"}
-                  width={21}
-                  height={21}
-                  alt=""
-                />
-                <p className="mx-3 font-semibold">
-                  One special character (e.g: !@#$%^&*?)
-                </p>
-              </div>
-            </div> */}
             </>
           ) : (
             <>
@@ -208,9 +187,6 @@ const AuthForm: React.FC<AuthFormProps> = ({
             </>
           )}
         </div>
-      </div>
-      <div className="login-img max-[600px]:hidden">
-        <Image src={"/assets/auth-bg.png"} width={600} height={600} alt="" />
       </div>
     </div>
   );
